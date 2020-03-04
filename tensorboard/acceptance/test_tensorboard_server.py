@@ -7,10 +7,12 @@ from .mixins.container_test_mixin import ContainerTestMixin
 
 class TestTensorboardServer(Spec, ContainerTestMixin):
 
+    tag = 'latest'
+
     @set_up
     def set_up(self):
         with cd('docker/tensorboard_server'):
-            run_command(f'./build_image.sh {self.repo} {self.tag}')
+            run_command(f'tensorboard/docker/tensorboard_server/build_image.sh {self.repo} {self.tag}', cwd='../../../')
         super().set_up_container('tensorboard-server')
 
     @tear_down
