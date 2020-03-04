@@ -38,7 +38,7 @@ class ContainerTestMixin(DockerTestMixin):
 
     def tear_down(self):
         for container in self.containers.values():
-            container.stop()
+            container.remove(force=True)
 
     def wait_for_container_logs(self, container_name, retries=1, log_pattern=''):
         container = self.containers[container_name]

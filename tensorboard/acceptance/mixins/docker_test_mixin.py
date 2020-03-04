@@ -14,7 +14,7 @@ class DockerTestMixin(object):
         self._temp_directories = {}
 
         for directory_name in directory_names:
-            self._temp_directories[directory_name] = tempfile.mkdtemp()
+            self._temp_directories[directory_name] = tempfile.mkdtemp(dir='/tmp')
 
     def _cleanup_temp_directories(self):
         import shutil
