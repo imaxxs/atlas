@@ -29,7 +29,7 @@ services:
       resources:
         limits:
           memory: 300m
-    command: "python /app/tensorboard_rest_api_server.py 5001"
+    command: "python /app/tensorboard_rest_api_server.py /archive 5001"
     build: ./docker/tensorboard_rest_api
 # networks:
 #   default:
