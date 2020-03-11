@@ -14,19 +14,23 @@ services:
         target: /logs
     build: ./docker/tensorboard_server
 
-  # tb_api:
-  #   image: us.gcr.io/atlas-ce/tensorboard-rest-api:latest
-  #   volumes:
-  #     - type: bind
-  #       source: .foundations/job_data
-  #       target: /archive
-  #     - type: bind
-  #       source: .foundations/tensorboard/work_dir
-  #       target: /logs
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 300m
+  tb_api:
+    image: us.gcr.io/atlas-ce/tensorboard-rest-api:latest
+    ports:
+      - "5001:5001"
+    volumes:
+      - type: bind
+        source: .foundations/job_data
+        target: /archive
+      - type: bind
+        source: .foundations/tensorboard/work_dir
+        target: /logs
+    deploy:
+      resources:
+        limits:
+          memory: 300m
+    command: "python /app/tensorboard_rest_api_server.py 5001"
+    build: ./docker/tensorboard_rest_api
 # networks:
 #   default:
 #     name: foundations-atlas-test
