@@ -1,18 +1,18 @@
 import re
 
-from foundations_spec import Spec, set_up, tear_down
+from foundations_spec import Spec, set_up_class, tear_down_class
 from foundations_contrib.utils import run_command, cd, wait_for_condition
 
 
 class TestTensorboardServer(Spec):
-    @set_up
-    def set_up(self):
+    @set_up_class
+    def set_up_class(cls):
         run_command(f"docker-compose up -d --force-recreate tb_server")
         run_command(f"docker-compose logs -f > .foundations/logs/tb_server.log 2>&1 &")
-        wait_for_condition(self.tb_server_is_ready, timeout=5)
+        wait_for_condition(cls.service_is_ready, timeout=5)
 
     @staticmethod
-    def tb_server_is_ready():
+    def service_is_ready():
         try:
             run_command("curl localhost:6006", quiet=True)
         except:
@@ -20,8 +20,8 @@ class TestTensorboardServer(Spec):
         else:
             return True
 
-    @tear_down
-    def tear_down(self):
+    @tear_down_class
+    def tear_down_class(cls):
         run_command("docker-compose stop tb_server")
         run_command("docker-compose rm -f tb_server")
 
