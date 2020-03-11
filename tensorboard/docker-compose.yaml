@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  tb_server:
+    image: us.gcr.io/atlas-ce/tensorboard-server:latest
+    entrypoint: tensorboard --logdir /logs
+    ports:
+      - "6006:6006"
+    volumes:
+      - type: bind
+        source: .foundations/job_data
+        target: /archive
+      - type: bind
+        source: .foundations/tensorboard/work_dir
+        target: /logs
+    build: ./docker/tensorboard_server
+
+  # tb_api:
+  #   image: us.gcr.io/atlas-ce/tensorboard-rest-api:latest
+  #   volumes:
+  #     - type: bind
+  #       source: .foundations/job_data
+  #       target: /archive
+  #     - type: bind
+  #       source: .foundations/tensorboard/work_dir
+  #       target: /logs
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 300m
+# networks:
+#   default:
+#     name: foundations-atlas-test
