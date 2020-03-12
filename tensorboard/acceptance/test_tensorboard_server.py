@@ -1,20 +1,27 @@
+import os
 import re
 
 from foundations_spec import Spec, set_up_class, tear_down_class
 from foundations_contrib.utils import run_command, cd, wait_for_condition
+from dotenv import load_dotenv
 
+load_dotenv()
+SERVICE_NAME = "tb_server"
+TB_SERVER_PORT = os.getenv('TB_SERVER_PORT')
 
 class TestTensorboardServer(Spec):
     @set_up_class
     def set_up_class(cls):
-        run_command(f"docker-compose up -d --force-recreate tb_server")
-        run_command(f"docker-compose logs -f > .foundations/logs/tb_server.log 2>&1 &")
+        run_command(f"docker-compose up -d --force-recreate {SERVICE_NAME}")
+        run_command(
+            f"docker-compose logs -f > .foundations/logs/{SERVICE_NAME}.log 2>&1 &"
+        )
         wait_for_condition(cls.service_is_ready, timeout=5)
 
     @staticmethod
     def service_is_ready():
         try:
-            run_command("curl localhost:6006", quiet=True)
+            run_command(f"curl localhost:{TB_SERVER_PORT}", quiet=True)
         except:
             return False
         else:
@@ -22,11 +29,13 @@ class TestTensorboardServer(Spec):
 
     @tear_down_class
     def tear_down_class(cls):
-        run_command("docker-compose stop tb_server")
-        run_command("docker-compose rm -f tb_server")
+        run_command(f"docker-compose stop {SERVICE_NAME}")
+        run_command(f"docker-compose rm -f {SERVICE_NAME}")
 
     def test_starts_tensorboard_server(self):
-        container_logs = run_command("docker-compose logs tb_server").stdout.decode()
+        container_logs = run_command(
+            f"docker-compose logs {SERVICE_NAME}"
+        ).stdout.decode()
         expected_message = re.compile(
             r"TensorBoard [0-9.]+ at http:\/\/[0-9a-f]{12}:6006\/ \(Press CTRL\+C to quit\)"
         )

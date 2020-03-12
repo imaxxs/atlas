@@ -5,9 +5,10 @@ import requests
 
 from foundations_spec import Spec, set_up_class, tear_down_class
 from foundations_contrib.utils import run_command, cd, wait_for_condition
+from dotenv import load_dotenv
 
-
-PORT = 5001
+load_dotenv()
+TB_API_PORT=os.getenv('TB_API_PORT')
 SERVICE_NAME = "tb_api"
 
 
@@ -33,7 +34,7 @@ class TestTensorboardRestAPI(Spec):
             container_logs = run_command(
                 f"docker-compose logs {SERVICE_NAME}"
             ).stdout.decode()
-            assert f"* Running on http://0.0.0.0:{PORT}/" in container_logs
+            assert f"* Running on http://0.0.0.0:{TB_API_PORT}/" in container_logs
         except AssertionError:
             return False
         else:
@@ -79,7 +80,7 @@ class TestTensorboardRestAPI(Spec):
         try:
             _make_request(
                 "POST",
-                f"http://localhost:{PORT}/create_sym_links",
+                f"http://localhost:{TB_API_PORT}/create_sym_links",
                 json=payload_from_frontend,
             )
         except requests.HTTPError as e:
