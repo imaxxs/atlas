@@ -1,8 +1,11 @@
 import requests
+import os
 import subprocess as sp
 from typing import List
 import sys
 from flask import Flask, request
+
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
@@ -43,9 +46,10 @@ def run_command(command: str, timeout: int=60, **kwargs) -> sp.CompletedProcess:
     return result
 
 if __name__ == "__main__":
+    load_dotenv()
     ARCHIVE_ROOT = sys.argv[1] if len(sys.argv) > 1 else '/archive' 
-    PORT = int(sys.argv[2]) if len(sys.argv) > 2 else 5000
-    DEBUG = sys.argv[3] if len(sys.argv) > 3 else False
+    PORT = sys.argv[2] if len(sys.argv) > 2 else 5000
+    DEBUG = True if int(os.getenv('DEBUG', 0)) else False
     
     print(f"Using archive root as {ARCHIVE_ROOT}")
     app.run(host='0.0.0.0', port=PORT, debug=DEBUG)
