@@ -4,7 +4,7 @@
 ![Downloads](https://img.shields.io/badge/Downloads-2000+-blue "downloads")
 
 <p align="center">
-  <img width="40%" src="dessa-square-logo.png">
+  <img src="dessa-square-logo.png">
 </p>
 
 ---
@@ -36,13 +36,13 @@ The latest version is in BETA.
 
 ## Installation 
 
-* [MacOS & Linux Quickstart Guide (~8 mins, recommended)](https://docs.atlas.dessa.com/en/latest/linux-ac-installation)
-* [Windows 10 Guide](https://docs.atlas.dessa.com/en/latest/windows-installation)
-* [AWS Cloud installation](https://docs.atlas.dessa.com/en/latest/team/atlas-on-aws)
-* [GCP Cloud installation](https://docs.atlas.dessa.com/en/latest/atlas-on-gcp)
+* [MacOS & Linux Quickstart Guide (~8 mins, recommended)](https://docs.atlas.dessa.com/en/latest/linux-mac-installation/)
+* [Windows 10 Guide](https://docs.atlas.dessa.com/en/latest/windows-installation/)
+* [AWS Cloud installation](https://docs.atlas.dessa.com/en/latest/atlas-on-aws/)
+* [GCP Cloud installation](https://docs.atlas.dessa.com/en/latest/atlas-on-gcp/)
 * Multi-node cluster deployment:
-  * [AWS guide](https://docs.atlas.dessa.com/en/latest/team/aws-installation)
-  * [On-prem cluster guide](https://docs.atlas.dessa.com/en/latest/team/on-prem-installation).
+  * [AWS guide](https://docs.atlas.dessa.com/en/latest/team/aws-installation/)
+  * [On-prem cluster guide](https://docs.atlas.dessa.com/en/latest/team/on-prem-installation/).
 
 ## Documentation
 Official documentation for Atlas can be found at https://www.docs.atlas.dessa.com/
