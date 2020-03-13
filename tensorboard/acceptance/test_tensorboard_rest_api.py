@@ -8,7 +8,7 @@ from foundations_contrib.utils import run_command, cd, wait_for_condition
 from dotenv import load_dotenv
 
 load_dotenv()
-TB_API_PORT=os.getenv('TB_API_PORT')
+TB_API_PORT = os.getenv("TB_API_PORT")
 SERVICE_NAME = "tb_api"
 
 
