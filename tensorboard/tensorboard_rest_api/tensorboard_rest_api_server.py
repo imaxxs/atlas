@@ -47,8 +47,8 @@ def run_command(command: str, timeout: int=60, **kwargs) -> sp.CompletedProcess:
 if __name__ == "__main__":
     load_dotenv()
     ARCHIVE_ROOT = sys.argv[1] if len(sys.argv) > 1 else '/archive' 
-    TB_API_PORT = os.getenv('TB_API_PORT')
-    DEBUG = True if int(os.getenv('DEBUG', 0)) else False
+    PORT = sys.argv[2] if len(sys.argv) > 2 else 5000
+    DEBUG = bool(int(os.getenv('DEBUG', 0)))
     
     print(f"Using archive root as {ARCHIVE_ROOT}")
-    app.run(host='0.0.0.0', port=TB_API_PORT, debug=DEBUG)
+    app.run(host='0.0.0.0', port=PORT, debug=DEBUG)
