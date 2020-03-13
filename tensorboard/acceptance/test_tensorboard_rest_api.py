@@ -34,7 +34,7 @@ class TestTensorboardRestAPI(Spec):
             container_logs = run_command(
                 f"docker-compose logs {SERVICE_NAME}"
             ).stdout.decode()
-            assert f"* Running on http://0.0.0.0:{TB_API_PORT}/" in container_logs
+            assert f"* Running on http://0.0.0.0:5000/" in container_logs
         except AssertionError:
             return False
         else:
